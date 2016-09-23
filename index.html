@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑步游戏</title>
+    <!--<link rel="stylesheet" href="css/public.css">-->
+    <style>
+        body,html{
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+            /*background: #354753;*/
+        }
+        canvas{
+            background: url("img/men1.jpg") repeat-x ;
+            background-size: cover;
+        }
+        .fenshu{
+            /*width: 100px;*/
+            /*height: 50px;*/
+            /*background: red;*/
+            position: absolute;
+            bottom:10px;
+            left: 20%;
+            text-align: center;
+            line-height: 50px;
+        }
+        .live{
+            /*width: 100px;*/
+            /*height: 50px;*/
+            /*background: red;*/
+            position: absolute;
+            bottom:10px;
+            right: 20%;
+
+            text-align: center;
+            line-height: 50px;
+        }
+        .over{
+            width: 90px;
+            height: 20px;
+            position: fixed;
+            top: 140px;
+            left: 35%;
+            display: none;
+        }
+        .congxin{
+            width: 200px;
+            height: 100px;
+            position: fixed;
+            top: 220px;
+            left: 35%;
+            display: none;
+        }
+        .diao{
+            width: 100px;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            right:10%;
+            transform: translate(0,-300px);
+            animation: qq 2s ease 5s forwards;
+            z-index: 9999999999999;
+        }
+        @keyframes qq {
+           0%{
+               transform: translate(0,-300px);
+           }
+            100%{
+                transform: translate(0,0px);
+            }
+        }
+        .diao img{
+            width: 207px;
+            height: 290px;
+        }
+        .zz{
+            width: 100%;
+            height: 100%;
+            /*background: pink;*/
+            z-index: 999999999;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: url("img/lunbo2.png")no-repeat;
+            background-size:cover;
+        }
+        /*@keyframes rota {*/
+            /*0%{*/
+                /*transform: translate(0,0px);*/
+            /*}*/
+            /*100%{*/
+                /*transform: translate(0,-600px);*/
+            /*}*/
+        /*}*/
+        .zz1{
+            width: 70%;
+            height: 100%;
+            margin: 0 auto;
+        }
+        .zz1 p{
+            width: 70%;
+            position: absolute;
+            top: 100px;
+            left: 18%;
+            color:#111;
+            font-size: 28px;
+            margin: 0 auto;
+            animation:rotaq 5s ease 2s forwards;
+        }
+        .fentu img{
+            width: 90px;
+            height: 90px;
+            position: absolute;
+            bottom:20px;
+            left: 13%;
+        }
+        .livetu img{
+            width: 90px;
+            height: 90px;
+            position:absolute;bottom:20px;
+            right: 13%;
+        }
+        /*@keyframes rotaq {*/
+            /*0%{*/
+                /*transform: translate(0,0px);*/
+            /*}*/
+            /*100%{*/
+                /*transform: translate(0,-600px);*/
+            /*}*/
+        /*}*/
+    </style>
+    <script src="js/hitPix.js"></script>
+    <script src="js/paoku.js"></script>
+
+    <script>
+        window.onload=function(){
+            var canvas=document.querySelector("canvas");
+            var cobj=canvas.getContext("2d");
+            //通过属性来设置
+            window.onresize=function(){
+                canvas.width=document.documentElement.clientWidth;
+                canvas.height=document.documentElement.clientHeight;
+            }
+        window.onresize();
+//            程序运行
+            var runImg=document.querySelectorAll(".run");
+            var jumpImg=document.querySelectorAll(".jump");
+            var hideImg=document.querySelectorAll(".hide");
+            var fenshu=document.getElementsByClassName("fenshu")[0];
+            var live=document.getElementsByClassName("live")[0];
+            var over=document.getElementsByClassName("over")[0]
+            var congxin=document.getElementsByClassName("congxin")[0]
+            var zi=document.getElementsByTagName("p")[0]
+            var diao=document.getElementsByClassName("diao")[0]
+            var audio=document.getElementsByTagName("audio")[0];
+//
+//            var run=document.getElementsByTagName("h3")[0]
+            var zz=document.getElementsByClassName("zz")[0]
+            var obj=new game(canvas,cobj,runImg,jumpImg,hideImg,fenshu,live,over,congxin,diao,zz,audio);
+            obj.play();
+
+//           run.onclick=function(){
+//               zz.display=none;
+//           }
+        }
+    </script>
+</head>
+<body>
+<audio src="img/music.mp3"></audio>
+<canvas>
+    您的浏览器不支持canvas，请升级浏览器
+</canvas>
+
+<img src="img/ren1.png" alt="" hidden class="run">
+<img src="img/ren2.png" alt="" hidden class="run">
+<img src="img/ren3.png" alt="" hidden class="run">
+<img src="img/ren4.png" alt="" hidden class="run">
+<img src="img/ren5.png" alt="" hidden class="run">
+<img src="img/ren6.png" alt="" hidden class="run">
+<img src="img/ren7.png" alt="" hidden class="run">
+<img src="img/ren3.png" alt="" hidden class="jump">
+
+
+<img src="img/01.png" alt="" hidden class="hide" >
+<img src="img/02.png" alt="" hidden class="hide" >
+<img src="img/03.png" alt="" hidden class="hide" >
+<img src="img/04.png" alt="" hidden class="hide" >
+<img src="img/05.png" alt="" hidden class="hide" >
+<div class="fentu">
+    <img src="img/fenshu.png" alt="">
+</div>
+<div class="fenshu">0</div>
+<div class="livetu">
+    <img src="img/shenmin.png" alt="">
+</div>
+<div class="live">3</div>
+<div class="over">
+    <img src="img/come.png" alt="">
+</div>
+<div class="congxin">
+    <img src="img/again.png" alt="">
+</div>
+<div class="diao">
+    <img src="img/qiqiu.png" alt="">
+</div>
+<div class="zz">
+    <div class="zz1">
+
+        <p>
+           <br><br>
+            每个人，都有自己的梦想，而每个人的梦想与现实的距离，究竟有多长、有多远，是各不相同。但有一点是共同的。那就是，不甘于现实中的处境，不甘于生活中的无助，希望借助梦想，摆脱自己无奈的困境，幻想自己能够拥有美好而又前途光明的未来，不愿屈就在现实中迷惘和落寞，在梦想与现实的边缘，寻找心理平衡。
+            <br><br>
+           就像游戏中的小女孩一样，即使是穿梭在无边的沙漠中，依然不放弃希望。
+            <br><br>
+            相信大家曾今都梦想着心中的那份美好，虽然被现实磨平了棱角，但依然要像小女孩一样，永远不放弃希望。
+        </p>
+    </div>
+</div>
+</body>
+</html>
